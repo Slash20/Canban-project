@@ -6,7 +6,7 @@ import { setBoards } from './store/slices/kanbanSlice';
 import './styles/globalStyles.css';
 import './styles/fonts.css';
 import { Header } from './components';
-import { Boards } from './components/Boards';
+import { Boards } from './components';
 
 const App = () => {
   const dispatch = useDispatch();

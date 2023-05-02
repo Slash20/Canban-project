@@ -9,6 +9,7 @@ const kanbanApi = async () => {
 
   tasks.forEach((task) => {
     const board = currentBoards.find((e) => e.id === task.board);
+    if (board === -1) return;
     board.tasks[task.position - 1] = task;
   });
 
