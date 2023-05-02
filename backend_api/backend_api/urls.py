@@ -22,5 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/tasks/', TasksAPIView.as_view()),
     path('api/v1/boards/', BoardAPIView.as_view()),
-    path('api/v1/boardsremove/<int:pk>/', BoardAPIRemove.as_view())
+    path('api/v1/boardsremove/<int:pk>/', BoardAPIRemove.as_view()),
+    path('api/v1/tasksremove/<int:pk>/', TaskAPIRemove.as_view()),
 ]
