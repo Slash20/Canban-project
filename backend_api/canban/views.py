@@ -1,3 +1,4 @@
+from django.db.models import F
 from rest_framework import generics, viewsets, status
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -43,6 +44,11 @@ class TasksAPIUpdate(generics.RetrieveUpdateAPIView):
     serializer_class = TaskSerializer
 
 
+class TaskAPIRemove(generics.RetrieveDestroyAPIView):
+    queryset = TaskModel.objects.all()
+    serializer_class = TaskSerializer
+
+
 class BoardAPIView(generics.ListCreateAPIView):
     queryset = BoardModel.objects.all()
     serializer_class = BoardSerializer
@@ -51,3 +57,13 @@ class BoardAPIView(generics.ListCreateAPIView):
 class BoardAPIRemove(generics.RetrieveDestroyAPIView):
     queryset = BoardModel.objects.all()
     serializer_class = BoardSerializer
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance_id = instance.id
+        self.perform_destroy(instance)
+        queryset = self.filter_queryset(self.get_queryset())
+
+        # Уменьшаем id у записей, чей id больше удаленного
+        queryset.filter(id__gt=instance_id).update(id=F('id') - 1)
+        return Response(status=status.HTTP_204_NO_CONTENT)
