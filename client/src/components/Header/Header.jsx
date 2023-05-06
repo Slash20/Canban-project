@@ -6,7 +6,12 @@ import Typography from '@mui/material/Typography';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 
-import { Search, SearchIconWrapper, StyledInputBase } from './components';
+import {
+  AddTaskBtn,
+  Search,
+  SearchIconWrapper,
+  StyledInputBase,
+} from './components';
 import { useDispatch, useSelector } from 'react-redux';
 import { setValue } from '../../store/slices/searchSlice';
 
@@ -39,6 +44,7 @@ const Header = ({ children }) => {
           >
             {children}
           </Typography>
+          <AddTaskBtn>Добавить</AddTaskBtn>
           <Search>
             <SearchIconWrapper>
               <SearchIcon />

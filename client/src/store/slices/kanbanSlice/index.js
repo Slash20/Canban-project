@@ -10,6 +10,13 @@ const kanbanSlice = createSlice({
 
 const kanbanReducer = kanbanSlice.reducer;
 
-const { setBoards, moveTask } = kanbanSlice.actions;
+const { setBoards, moveTask, clearLastBoard, addTaskToFirstBoard } =
+  kanbanSlice.actions;
 
-export { kanbanReducer, setBoards, moveTask };
+export {
+  kanbanReducer,
+  setBoards,
+  moveTask,
+  clearLastBoard,
+  addTaskToFirstBoard,
+};

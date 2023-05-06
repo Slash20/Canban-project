@@ -5,7 +5,7 @@ import { setBoards } from './store/slices/kanbanSlice';
 
 import './styles/globalStyles.css';
 import './styles/fonts.css';
-import { Header } from './components';
+import { Header, Popup } from './components';
 import { Boards } from './components';
 
 const App = () => {
@@ -23,6 +23,7 @@ const App = () => {
     <div className="app">
       <Header>Канбан доска</Header>
       <Boards />
+      <Popup />
     </div>
   );
 };

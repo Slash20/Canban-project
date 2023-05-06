@@ -24,6 +24,18 @@ const reducers = {
 
     state.boards = newBoards;
   },
+
+  clearLastBoard(state) {
+    const len = state.boards.length - 1;
+    state.boards[len].tasks = [];
+  },
+
+  addTaskToFirstBoard(state, action) {
+    const task = action.payload;
+    const tasks = state.boards[0].tasks.map((e) => ({ ...e }));
+    tasks.push(task);
+    state.boards[0].tasks = tasks;
+  },
 };
 
 export default reducers;

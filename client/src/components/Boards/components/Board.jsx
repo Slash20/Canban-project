@@ -1,12 +1,14 @@
 import { Droppable } from 'react-beautiful-dnd';
 import Grid from '@mui/material/Unstable_Grid2';
-import { Box, Divider, List, Typography } from '@mui/material';
+import { Box, Button, List, Typography } from '@mui/material';
 import { Task } from './Task';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { clearLastBoard } from '../../../store/slices/kanbanSlice';
 
 const Board = (props) => {
   const { title, tasks, id } = props;
   const value = useSelector((state) => state.search.value);
+  const dispatch = useDispatch();
   return (
     <Grid
       xs={8}
@@ -52,15 +54,15 @@ const Board = (props) => {
                 e.title.toLowerCase().includes(value.toLowerCase())
               )
               .map((task, i) => (
-                <>
-                  <Task index={i} key={task.id} {...task} />
-                  <Divider light />
-                </>
+                <Task index={i} key={task.id} {...task} />
               ))}
             {provided.placeholder}
           </List>
         )}
       </Droppable>
+      {title === 'Выполнено' && (
+        <Button onClick={() => dispatch(clearLastBoard())}>Очистить</Button>
+      )}
     </Grid>
   );
 };
