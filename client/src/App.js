@@ -7,6 +7,7 @@ import './styles/globalStyles.css';
 import './styles/fonts.css';
 import { Header, Popup } from './components';
 import { Boards } from './components';
+import { AccordionProvider } from './contexts';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -22,7 +23,9 @@ const App = () => {
   return (
     <div className="app">
       <Header>Канбан доска</Header>
-      <Boards />
+      <AccordionProvider>
+        <Boards />
+      </AccordionProvider>
       <Popup />
     </div>
   );

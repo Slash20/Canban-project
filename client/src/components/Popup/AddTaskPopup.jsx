@@ -16,13 +16,13 @@ const AddTaskPopup = () => {
   const { closePopup } = useContext(PopupContext);
   const dispatch = useDispatch();
   const [title, setTitle] = useState('');
-  const [descript, setDescript] = useState('');
+  const [description, setDescription] = useState('');
 
   const onClickHeandler = () => {
     dispatch(
       addTaskToFirstBoard({
         title,
-        descript,
+        description,
       })
     );
     closePopup();
@@ -51,8 +51,8 @@ const AddTaskPopup = () => {
           type="descript"
           fullWidth
           variant="standard"
-          value={descript}
-          onChange={(e) => setDescript(e.target.value)}
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
         />
       </DialogContent>
       <DialogActions>

@@ -13,9 +13,10 @@ const AddTaskBtn = ({ children }) => {
   return (
     <Button
       onClick={onClickHeandler}
-      variant="contained"
+      variant="text"
       sx={{
-        background: '#1550bc',
+        // background: '#1550bc',
+        color: 'white',
       }}
     >
       {children}

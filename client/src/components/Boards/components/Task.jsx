@@ -1,14 +1,20 @@
 import { ListItem, Typography } from '@mui/material';
 import { Draggable } from 'react-beautiful-dnd';
+import { Accordion } from './Accordion';
+import { AccordionSummary } from './AccordionSummary';
+import { AccordionDetails } from './AccordionDetails';
 
 const Task = (props) => {
-  const { index, id, title } = props;
+  const { index, id, title, description, expanded, setExpanded } = props;
+  const handleChange = (panel) => (event, newExpanded) => {
+    setExpanded(newExpanded ? panel : false);
+  };
+
   return (
     <Draggable index={index} draggableId={`${id}`}>
       {(provided) => (
         <ListItem
           sx={{
-            height: '50px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -17,10 +23,22 @@ const Task = (props) => {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
+          onDrag={() => console.log('dsad')}
         >
-          <Typography fontSize={20} color="black">
-            {title}
-          </Typography>
+          <Accordion
+            expanded={expanded === `panel${id}`}
+            onChange={handleChange(`panel${id}`)}
+          >
+            <AccordionSummary
+              aria-controls={`panel${id}d-content`}
+              id={`panel${id}d-header`}
+            >
+              <Typography>{title}</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography>{description}</Typography>
+            </AccordionDetails>
+          </Accordion>
         </ListItem>
       )}
     </Draggable>
