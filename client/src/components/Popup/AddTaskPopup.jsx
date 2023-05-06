@@ -8,23 +8,27 @@ import {
 } from '@mui/material';
 
 import { useContext, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { PopupContext } from '../../contexts';
 import { addTaskToFirstBoard } from '../../store/slices/kanbanSlice';
+import { addTask } from '../../utils/helpers/addTask';
 
 const AddTaskPopup = () => {
   const { closePopup } = useContext(PopupContext);
+  const { boards } = useSelector((state) => state.kanban);
   const dispatch = useDispatch();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
-  const onClickHeandler = () => {
-    dispatch(
-      addTaskToFirstBoard({
-        title,
-        description,
-      })
-    );
+  const onClickHeandler = async () => {
+    const response = await addTask({
+      title,
+      description,
+      id: Math.random(),
+      board: boards[0].id,
+    });
+    console.log(response.data);
+    dispatch(addTaskToFirstBoard(response.data));
     closePopup();
   };
 

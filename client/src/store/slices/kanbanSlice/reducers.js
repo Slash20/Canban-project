@@ -1,3 +1,6 @@
+import { addTask } from '../../../utils/helpers/addTask';
+import { removeTask } from '../../../utils/helpers/removeTask';
+
 const reducers = {
   setBoards(state, action) {
     state.boards = action.payload;
@@ -11,9 +14,18 @@ const reducers = {
       tasks: board.tasks.map((task) => ({ ...task })),
     }));
 
-    const dragElem = newBoards
-      .find((board) => `${board.id}` === startBoard)
-      .tasks.splice(startIndex, 1)[0];
+    // const dragElem =
+    //   .tasks.splice(startIndex, 1)[0];
+
+    const board = newBoards.find((board) => `${board.id}` === startBoard);
+
+    console.log(startIndex);
+
+    console.log(board);
+
+    console.log(board.tasks);
+
+    const dragElem = board.tasks.splice(startIndex, 1)[0];
 
     dragElem.board = endBoard;
     dragElem.position = endIndex + 1;
@@ -21,12 +33,15 @@ const reducers = {
     newBoards
       .find((board) => `${board.id}` === endBoard)
       .tasks.splice(endIndex, 0, dragElem);
-
     state.boards = newBoards;
   },
 
   clearLastBoard(state) {
     const len = state.boards.length - 1;
+
+    state.boards[len].tasks.forEach((e) => {
+      removeTask(e.id);
+    });
     state.boards[len].tasks = [];
   },
 
