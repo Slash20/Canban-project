@@ -8,6 +8,7 @@ import './styles/fonts.css';
 import { Header, Popup } from './components';
 import { Boards } from './components';
 import { AccordionProvider } from './contexts';
+import { Burger } from './components/Burger/Burger';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ const App = () => {
         <Boards />
       </AccordionProvider>
       <Popup />
+      <Burger />
     </div>
   );
 };

@@ -4,11 +4,16 @@ const BurgerContext = createContext();
 
 const BurgerProvider = ({ children }) => {
   const [burger, setBurger] = useState(false);
+
+  const openBurger = () => setBurger(true);
+  const closeBurger = () => setBurger(false);
+
   return (
     <BurgerContext.Provider
       value={{
         burger,
-        setBurger,
+        openBurger,
+        closeBurger,
       }}
     >
       {children}
