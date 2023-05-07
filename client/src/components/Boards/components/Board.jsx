@@ -4,12 +4,9 @@ import { Box, Button, List, Typography } from '@mui/material';
 import { Task } from './Task';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearLastBoard } from '../../../store/slices/kanbanSlice';
-import { useState } from 'react';
 
 const Board = (props) => {
-  const { title, tasks, id, expanded, setExpanded } = props;
-  // console.log(expanded);
-  // const [expanded, setExpanded] = useState('');
+  const { title, tasks, id, expanded, setExpanded, index } = props;
 
   const value = useSelector((state) => state.search.value);
   const dispatch = useDispatch();
@@ -62,6 +59,7 @@ const Board = (props) => {
                   expanded={expanded}
                   setExpanded={setExpanded}
                   index={i}
+                  boardIndex={index}
                   key={task.id}
                   {...task}
                 />
