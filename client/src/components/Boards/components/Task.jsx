@@ -1,12 +1,18 @@
-import { ListItem, Typography } from '@mui/material';
+import { Box, ListItem, Typography } from '@mui/material';
 import { Draggable } from 'react-beautiful-dnd';
 import { Accordion } from './Accordion';
 import { AccordionSummary } from './AccordionSummary';
 import { AccordionDetails } from './AccordionDetails';
+import { UpdatePopupBtn } from './UpdatePopupBtn';
+import { DeletepopupBtn } from './DeletePopupBtn';
+import { useState } from 'react';
 
 const Task = (props) => {
-  const { index, id, title, description, expanded, setExpanded } = props;
-  const handleChange = (panel) => (event, newExpanded) => {
+  const { index, boardIndex, id, title, description, expanded, setExpanded } =
+    props;
+  const [vis, setVis] = useState(0);
+  const handleChange = (panel) => (e, newExpanded) => {
+    if (e.target.closest('button')) return;
     setExpanded(newExpanded ? panel : false);
   };
 
@@ -14,6 +20,8 @@ const Task = (props) => {
     <Draggable index={index} draggableId={`${id}`}>
       {(provided) => (
         <ListItem
+          onMouseOver={() => setVis(1)}
+          onMouseOut={() => setVis(0)}
           sx={{
             display: 'flex',
             alignItems: 'center',
@@ -33,9 +41,39 @@ const Task = (props) => {
               aria-controls={`panel${id}d-content`}
               id={`panel${id}d-header`}
             >
-              <Typography>{title}</Typography>
+              <Box
+                sx={{
+                  width: '100%',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                }}
+              >
+                <Typography>
+                  {title.length < 24 ? title : `${title.slice(0, 24)}...`}
+                </Typography>
+                <Box>
+                  <UpdatePopupBtn
+                    title={title}
+                    description={description}
+                    index={index}
+                    boardIndex={boardIndex}
+                    vis={vis}
+                  />
+                  <DeletepopupBtn
+                    index={index}
+                    boardIndex={boardIndex}
+                    id={id}
+                    vis={vis}
+                  />
+                </Box>
+              </Box>
             </AccordionSummary>
-            <AccordionDetails>
+            <AccordionDetails
+              sx={{
+                overflow: 'hidden',
+              }}
+            >
               <Typography>{description}</Typography>
             </AccordionDetails>
           </Accordion>

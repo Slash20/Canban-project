@@ -38,6 +38,7 @@ const Boards = () => {
               expanded={accordion[`expanded_${i + 1}`]}
               setExpanded={accordion[`setExpanded_${i + 1}`]}
               {...board}
+              index={i}
               key={board.id}
             />
           ))}
