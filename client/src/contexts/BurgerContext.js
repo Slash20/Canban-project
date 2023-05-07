@@ -1,9 +1,19 @@
-import { createContext } from 'react';
+import { createContext, useState } from 'react';
 
 const BurgerContext = createContext();
 
 const BurgerProvider = ({ children }) => {
-  return <BurgerContext.Provider>{children}</BurgerContext.Provider>;
+  const [burger, setBurger] = useState(false);
+  return (
+    <BurgerContext.Provider
+      value={{
+        burger,
+        setBurger,
+      }}
+    >
+      {children}
+    </BurgerContext.Provider>
+  );
 };
 
 export { BurgerContext, BurgerProvider };

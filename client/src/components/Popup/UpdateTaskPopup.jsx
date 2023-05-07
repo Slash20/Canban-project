@@ -11,6 +11,7 @@ import { useContext, useState } from 'react';
 import { PopupContext } from '../../contexts';
 import { updateTask } from '../../store/slices/kanbanSlice';
 import { useDispatch } from 'react-redux';
+import { putTask } from '../../utils/helpers/putTask';
 
 const UpdateTaskPopup = (props) => {
   const dispatch = useDispatch();
@@ -21,6 +22,11 @@ const UpdateTaskPopup = (props) => {
 
   const onClickHeandler = async () => {
     dispatch(updateTask({ index, boardIndex, title, description }));
+    putTask({
+      title,
+      description,
+      id: props.id,
+    });
     closePopup();
   };
 
