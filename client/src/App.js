@@ -6,9 +6,9 @@ import { setBoards } from './store/slices/kanbanSlice';
 import './styles/globalStyles.css';
 import './styles/fonts.css';
 import { Header, Popup } from './components';
-import { Boards } from './components';
-import { AccordionProvider } from './contexts';
 import { Burger } from './components/Burger/Burger';
+import { Route, Routes } from 'react-router-dom';
+import { routes } from './routes';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -24,9 +24,11 @@ const App = () => {
   return (
     <div className="app">
       <Header>Канбан доска</Header>
-      <AccordionProvider>
-        <Boards />
-      </AccordionProvider>
+      <Routes>
+        {routes.map((e) => (
+          <Route key={e.name} path={e.path} element={e.elem} />
+        ))}
+      </Routes>
       <Popup />
       <Burger />
     </div>
