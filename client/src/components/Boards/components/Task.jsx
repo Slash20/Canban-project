@@ -57,6 +57,7 @@ const Task = (props) => {
                     title={title}
                     description={description}
                     index={index}
+                    id={id}
                     boardIndex={boardIndex}
                     vis={vis}
                   />
