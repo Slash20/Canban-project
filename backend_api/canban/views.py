@@ -1,19 +1,24 @@
 from django.db.models import F
 from rest_framework import generics, viewsets, status
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from canban.serializers import *
 
 
-# class MoveTaskView(APIView):
-#     def patch(self, request, *args, **kwargs):
-#         tasks_id = kwargs['tasks_id']
-#         task = TaskModel.objects.get(id=tasks_id)
-#         serializer = TaskSerializer(task, data=request.data, partial=True)
-#         if serializer.is_valid():
-#             serializer.save(new_position=request.data.get('new_position'))
-#             return Response(serializer.data, status=status.HTTP_200_OK)
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+class MoveTaskView(APIView):
+    def put(self, request, pk, format=None):
+        task = get_object_or_404(TaskModel, pk=pk)
+        new_list_id = request.data.get('list_id', None)
+        if new_list_id is None:
+            return Response({'detail': 'List ID is required.'}, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            new_list = List.objects.get(pk=new_list_id)
+        except List.DoesNotExist:
+            return Response({'detail': 'Invalid List ID.'}, status=status.HTTP_400_BAD_REQUEST)
+        task.list = new_list
+        task.save()
+        serializer = TaskSerializer(task)
+        return Response(serializer.data)
 
 
 class TasksAPIView(generics.ListCreateAPIView):
