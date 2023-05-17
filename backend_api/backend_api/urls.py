@@ -25,5 +25,5 @@ urlpatterns = [
     path('api/v1/boardsremove/<int:pk>/', BoardAPIRemove.as_view()),
     path('api/v1/tasksremove/<int:pk>/', TaskAPIRemove.as_view()),
     path('api/v1/tasksupdate/<int:pk>/', TasksAPIUpdate.as_view()),
-    # path('api/v1/tasks/<int:tasks_id>/move/', MoveTaskView.as_view(), name='move-task'),
+    path('api/v1/tasks/<int:pk>/move/', MoveTaskView.as_view(), name='move-task'),
 ]
