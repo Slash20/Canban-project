@@ -7,6 +7,7 @@ class TaskModel(models.Model):
     board = models.ForeignKey('BoardModel', on_delete=models.CASCADE, related_name='tasks')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    list = models.ForeignKey('List', on_delete=models.CASCADE, related_name='lists', null=True)
 
     class Meta:
         db_table = 'tasks'
@@ -26,3 +27,14 @@ class BoardModel(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class List(models.Model):
+    name = models.CharField(max_length=200)
+    board = models.ForeignKey('BoardModel', on_delete=models.CASCADE, related_name='lists')
+
+    class Meta:
+        db_table = 'lists'
+
+    def __str__(self):
+        return self.name
